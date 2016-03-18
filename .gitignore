@@ -1,0 +1,15 @@
+.DS_Store
+
+# Build output directies
+target/
+build/
+
+.m2
+
+
+# Eclipse specific files/directories
+.classpath
+.project
+.settings
+.metadata
+bin/
