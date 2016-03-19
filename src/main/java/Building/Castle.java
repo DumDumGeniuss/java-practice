@@ -1,4 +1,4 @@
-package Building;
+package building;
 
 public class Castle implements Building{
 	

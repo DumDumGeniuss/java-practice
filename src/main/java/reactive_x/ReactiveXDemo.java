@@ -2,13 +2,10 @@ package reactive_x;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
-import Building.Building;
-import Building.BuildingBuilder;
-import Building.House;
+import building.Building;
+import building.BuildingFactory;
+import building.House;
 import rx.*;
 public class ReactiveXDemo {
 	public static void main(String args[]) throws InterruptedException {
@@ -20,7 +17,7 @@ public class ReactiveXDemo {
 	
 	private static void demo1() {
 		
-		final BuildingBuilder bb = new BuildingBuilder();
+		final BuildingFactory bb = BuildingFactory.getInstance();
 		final String[] houseNames = new String[]{"Amy's house","Steven's hosue","Allen's house"};
 		final String[] castleNames = new String[]{"Linda's castle","Allen's castle","Kate's castle"};	
 		final List<Building> houses = new LinkedList<Building>();
@@ -63,14 +60,16 @@ public class ReactiveXDemo {
 			public void onNext(Building building) {
 				System.out.println("Complete building: " + building.getName());
 				if(building instanceof House){
-					bb.appendBuilding(houses, building);
+					houses.add(building);
 				}else{
-					bb.appendBuilding(castles, building);
+					castles.add(building);
 				}
 				
 			}
 			
 		});
+		
+		System.out.println("=========Do this first===========");
 		
 		 
 	}

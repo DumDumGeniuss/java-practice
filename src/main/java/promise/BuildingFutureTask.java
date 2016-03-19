@@ -1,18 +1,17 @@
 package promise;
 
-import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
-import Building.Building;
-import Building.BuildingBuilder;
+import building.Building;
+import building.BuildingFactory;
 
 public class BuildingFutureTask {
 	
-	private BuildingBuilder builder;
+	private BuildingFactory builder;
 	
-	public BuildingFutureTask(BuildingBuilder builder){
+	public BuildingFutureTask(BuildingFactory builder){
 		this.builder = builder;
 	}
 	
@@ -46,23 +45,7 @@ public class BuildingFutureTask {
 		return promise;
  	}
 	
-	public Future<Boolean> appendBuilding(final List<Building> buildings , final Building building){
-		
-		Callable <Boolean> callable = new Callable<Boolean>(){
 
-			public Boolean call() throws Exception {
-				builder.appendBuilding(buildings, building);
-				return true;
-			}
-			
-		};
-		
-		FutureTask<Boolean> promise = new FutureTask<Boolean>(callable);
-		new Thread(promise).start();
-		
-		return promise;
-		
-	}
 
 
 }

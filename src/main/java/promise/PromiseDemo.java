@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import Building.Building;
-import Building.BuildingBuilder;
+import building.Building;
+import building.BuildingFactory;
 
 
 public class PromiseDemo {
@@ -33,7 +33,7 @@ public class PromiseDemo {
 
 	private static void demo2() throws InterruptedException {
 
-		BuildingBuilder bb = new BuildingBuilder();
+		BuildingFactory bb = BuildingFactory.getInstance();
 
 		List<Building> houses = new LinkedList<Building>();
 		List<Building> castles = new LinkedList<Building>();
@@ -45,18 +45,27 @@ public class PromiseDemo {
 		Building castle2 = bb.buildCastle("Allen's Castle");
 		Building castle3 = bb.buildCastle("Kate's Castle");
 		
-		bb.appendBuilding(houses, house1);
-		bb.appendBuilding(houses, house2);
-		bb.appendBuilding(houses, house3);
-		bb.appendBuilding(castles, castle1);
-		bb.appendBuilding(castles, castle2);
-		bb.appendBuilding(castles, castle3);
+		houses.add(house1);
+		houses.add(house2);
+		houses.add(house3);
+		castles.add(castle1);
+		castles.add(castle2);
+		castles.add(castle3);
 		
+		
+		for(Building building:houses){
+			System.out.print(building.getName()+" , ");
+			System.out.println();
+		}
+		for(Building building:castles){
+			System.out.print(building.getName()+" , ");
+			System.out.println();
+		}
 	}
 
 	private static void demo1() throws InterruptedException, ExecutionException {
 		
-		BuildingFutureTask bt = new BuildingFutureTask(new BuildingBuilder());
+		BuildingFutureTask bt = new BuildingFutureTask(BuildingFactory.getInstance());
 		
 		List<Building> houses = new LinkedList<Building>();
 		List<Building> castles = new LinkedList<Building>();
@@ -73,32 +82,32 @@ public class PromiseDemo {
 		Arrays.fill(flags, 0);
 		while(true){
 			if(castlePromise1.isDone()&&flags[0]==0){
-				bt.appendBuilding(castles, castlePromise1.get());
+				castles.add(castlePromise1.get());
 				flags[0] = 1;
 				check++;
 			}
 			if(castlePromise2.isDone()&&flags[1]==0){
-				bt.appendBuilding(castles, castlePromise2.get());
+				castles.add(castlePromise2.get());
 				flags[1] = 1;
 				check++;
 			}
 			if(castlePromise3.isDone()&&flags[2]==0){
-				bt.appendBuilding(castles, castlePromise3.get());
+				castles.add(castlePromise3.get());
 				flags[2] = 1;
 				check++;
 			}
 			if(housePromise1.isDone()&&flags[3]==0){
-				bt.appendBuilding(houses, housePromise1.get());
+				houses.add(housePromise1.get());
 				flags[3] = 1;
 				check++;
 			}
 			if(housePromise2.isDone()&&flags[4]==0){
-				bt.appendBuilding(houses, housePromise2.get());
+				houses.add(housePromise2.get());
 				flags[4] = 1;
 				check++;
 			}
 			if(housePromise3.isDone()&&flags[5]==0){
-				bt.appendBuilding(houses, housePromise3.get());
+				houses.add(housePromise2.get());
 				flags[5] = 1;
 				check++;
 			}
@@ -106,6 +115,16 @@ public class PromiseDemo {
 			Thread.sleep(500);
 		}
 		
+		for(Building building:houses){
+			System.out.print(building.getName()+" , ");
+		}
+		System.out.println();
+
+		for(Building building:castles){
+			System.out.print(building.getName()+" , ");
+		}
+		System.out.println();
+
 
 		
 	}

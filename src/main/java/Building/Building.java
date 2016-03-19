@@ -1,4 +1,4 @@
-package Building;
+package building;
 
 public interface Building {
 	public String getName();
