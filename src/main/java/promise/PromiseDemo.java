@@ -35,8 +35,8 @@ public class PromiseDemo {
 
 		BuildingBuilder bb = new BuildingBuilder();
 
-		LinkedList<Building> houses = new LinkedList<Building>();
-		LinkedList<Building> castles = new LinkedList<Building>();
+		List<Building> houses = new LinkedList<Building>();
+		List<Building> castles = new LinkedList<Building>();
 		
 		Building house1 = bb.buildHouse("Amy's house");
 		Building house2 = bb.buildHouse("Steven's house");

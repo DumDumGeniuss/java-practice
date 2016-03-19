@@ -10,10 +10,6 @@ import Building.Building;
 import Building.BuildingBuilder;
 import Building.House;
 import rx.*;
-import rx.functions.Action;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 public class ReactiveXDemo {
 	public static void main(String args[]) throws InterruptedException {
 		
@@ -27,8 +23,8 @@ public class ReactiveXDemo {
 		final BuildingBuilder bb = new BuildingBuilder();
 		final String[] houseNames = new String[]{"Amy's house","Steven's hosue","Allen's house"};
 		final String[] castleNames = new String[]{"Linda's castle","Allen's castle","Kate's castle"};	
-		final LinkedList<Building> houses = new LinkedList<Building>();
-		final LinkedList<Building> castles = new LinkedList<Building>();
+		final List<Building> houses = new LinkedList<Building>();
+		final List<Building> castles = new LinkedList<Building>();
 		
 		Observable.create(new Observable.OnSubscribe<Building>() {
 
@@ -36,11 +32,7 @@ public class ReactiveXDemo {
 				for(final String name : houseNames){
 					new Thread(){
 						public void run(){
-							try {
-								obs.onNext( bb.buildHouse(name));
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
+							obs.onNext( bb.buildHouse(name));
 						}
 					}.start();
 				}
@@ -70,20 +62,16 @@ public class ReactiveXDemo {
 
 			public void onNext(Building building) {
 				System.out.println("Complete building: " + building.getName());
-				try {
-					if(building instanceof House){
-						bb.appendBuilding(houses, building);
-					}else{
-						bb.appendBuilding(castles, building);
-					}
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				if(building instanceof House){
+					bb.appendBuilding(houses, building);
+				}else{
+					bb.appendBuilding(castles, building);
 				}
 				
 			}
 			
 		});
 		
-		
+		 
 	}
 }
