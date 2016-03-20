@@ -5,7 +5,7 @@ ReactiveX
 <br/>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ReactiveX可以用來解決同步及異步處理的問題，他的主要概念就是，
-創建一個可被觀察者（Observable），並且創建一個訂閱者（Subscriber）去訂閱他，每當觀察者發射一個數據，訂閱者都
+創建一個可被觀察者（Observable），並且創建一個訂閱者（Subscriber）去訂閱他，每當被觀察者發射一個數據，訂閱者都
 可以接到，並對其做相對應的處理，其他還有像是例外處理跟所有任務完成的訊息發送。
 <br/>
 
